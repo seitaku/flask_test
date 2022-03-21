@@ -1,0 +1,125 @@
+.red {
+    color: red;
+}
+
+.subtitle {
+    color: gray;
+    text-decoration: underline;
+}
+
+.page-title {
+    text-decoration: underline;
+}
+
+
+.b {
+    font-weight: bold;
+}
+
+.signSpace {
+    border-bottom: solid;
+    height: 90px;
+    width: 200px !important;
+}
+
+.flex-col {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+}
+
+.flex-row {
+    display: flex;
+}
+
+.mt0 {
+    margin-top: 0;
+}
+
+.bank-info{
+    background: #ffff99;
+}
+
+.border-btm-bd {
+    border-bottom: black double;
+}
+.nowrap {
+    white-space: nowrap;
+}
+.w40 {
+    width: 40px;
+}
+.w160 {
+    width: 160px;
+}
+.w90 {
+    width: 90px;
+}
+.w240 {
+    width: 240px;
+}
+
+.tr {
+    text-align: right;
+}
+.tc {
+    text-align: center;
+}
+.tl {
+    text-align: left;
+}
+
+.pl5 {
+    padding-left: 5px;
+}
+.logo {
+    width: 10vh;
+}
+
+div{
+    border: solid black 1px;
+}
+
+.ml-110{
+    margin-left: -110px;
+}
+.mr-110{
+    margin-right: -110px;
+}
+
+* {
+    font-size: x-small;
+}
+p {
+    background-color: pink;
+    margin-top: 1px;
+    margin-bottom: 1px;
+}
+.payment>div>p {
+    display: flex;
+    flex: 1;
+}
+.flex-end {
+    display: flex;
+    flex: 1;
+    justify-content: end;
+}
+.text-indent-1em{
+    text-indent: -1em;
+    margin-left: 1em;    
+}    
+
+@page {
+    size: A4;
+    margin-top: 10mm;
+    margin-bottom: 10mm;
+    margin-left: 10mm;
+    margin-right: 10mm;
+    padding-top: 2rem;
+}
+
+@page:first {
+    padding-top: 0;
+}
