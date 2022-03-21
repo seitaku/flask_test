@@ -1,0 +1,4 @@
+excel/*.xlsx
+*.pyc
+.flaskenv
+initPackage.txt
