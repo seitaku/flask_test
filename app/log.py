@@ -14,19 +14,11 @@ LOG_PATH_ERROR = os.path.join(LOG_PATH, 'error.log')
 LOG_PATH_INFO = os.path.join(LOG_PATH, 'info.log')
 LOG_PATH_ALL = os.path.join(LOG_PATH, 'all.log')
 
-print('BASE_DIR:',BASE_DIR)
-print('LOG_PATH:',LOG_PATH)
-print('LOG_PATH_ERROR:',LOG_PATH_ERROR)
-print('LOG_PATH_INFO:',LOG_PATH_INFO)
-print('LOG_PATH_ALL:',LOG_PATH_ALL)
-
-
 # 1 MB = 1024 * 1024 bytes
 # 此處設定日誌檔案大小為500MB，超過500MB自動開始寫入新的日誌檔案，歷史檔案歸檔
 LOG_FILE_MAX_BYTES = 500 * 1024 * 1024
 # 輪轉數量是 10 個
 LOG_FILE_BACKUP_COUNT = 10
-
 
 class Logger(object):
     level_relations = {
