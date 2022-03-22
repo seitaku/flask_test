@@ -6,8 +6,7 @@ from flask_sqlalchemy import SQLAlchemy
 from app.config.config import config
 from flask_jwt_extended import (JWTManager, jwt_required, create_access_token,
                                 create_refresh_token, get_jwt_identity)
-import logging, logging.handlers
-from app.config.log import Logger
+from .log import Logger
 
 
 db = SQLAlchemy()
@@ -23,7 +22,6 @@ def create_app(config_name):
 
     register_extensions(app)
     register_blueprints(app)
-    # register_logging(app)
     # register_i18n(app)
 
     return app
@@ -31,9 +29,10 @@ def create_app(config_name):
 
 def register_extensions(app):
     """Register extensions with the Flask application."""
+    logger.init_app(app)
     db.init_app(app)
     jwt.init_app(app)
-    logger.init_app(app)
+    
 
 
 def register_blueprints(app):
@@ -44,37 +43,6 @@ def register_blueprints(app):
     from app.view.qPage import app_qPage
     app.register_blueprint(app_qPage, url_prefix='/')
 
-# def register_logging(app):
-#     app.logger.name = 'app'
-
-#     logging_format = logging.Formatter(
-#         '''
-#         %(asctime)s - %(levelname)s - %(filename)s - %(funcName)s - 
-#         %(lineno)s - %(message)s
-#         ''')
-
-#     # socket_handler
-#     socketHandler = logging.handlers.SocketHandler('localhost', logging.handlers.DEFAULT_TCP_LOGGING_PORT)
-#     socketHandler.setFormatter(logging_format)
-#     app.logger.addHandler(socketHandler)
-#     print(app.logger.name)
-#     # app.logger.setLevel(logging.DEBUG)
-
-#     # set own root logger
-#     rootLogger = logging.getLogger(__name__)
-#     rootLogger.setLevel(logging.DEBUG)
-#     socketHandler = logging.handlers.SocketHandler('localhost',logging.handlers.DEFAULT_TCP_LOGGING_PORT)
-#     rootLogger.addHandler(socketHandler)
-#     rootLogger.setLevel(logging.DEBUG)
-
-#     return app
-    
-# rootLogger = logging.getLogger(__name__)
-# rootLogger.setLevel(logging.DEBUG)
-# socketHandler = logging.handlers.SocketHandler('localhost',
-#                     logging.handlers.DEFAULT_TCP_LOGGING_PORT)
-# rootLogger.addHandler(socketHandler)
-# rootLogger.setLevel(logging.DEBUG)
 
 # def register_extensions(app):
 #     """Register extensions with the Flask application."""

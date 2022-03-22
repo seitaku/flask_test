@@ -52,6 +52,15 @@ def register():
     return flag
 
 @app_login.route("/")
+def test_log():
+    log.info('info log')
+    log.debug('info debug')
+    log.warning('info warning')
+    log.error('error log')
+    return 'tt'
+
+
+@app_login.route("/")
 @app_login.route("/login", methods=['POST'])
 def login():
     try:
