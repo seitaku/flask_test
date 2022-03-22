@@ -34,6 +34,8 @@
 
 import os
 from dotenv import load_dotenv
+from flask import request, redirect
+
 # load .env
 dotenv_path = os.path.join(os.path.dirname(__file__), '.flaskenv')
 
@@ -44,6 +46,39 @@ if os.path.exists(dotenv_path):
 # 切換環境
 from app import create_app
 app = create_app('dev')
+
+# 不驗證 token 的 api
+pass_api=[
+    '/',
+    '/login',
+    '/creat_token'
+]
+
+@app.before_request
+def log_request():
+    if request.path.startswith('/static'):
+        return None
+
+    app.logger.info( f'request path = {request.path}' )
+    for api in pass_api:
+        if request.path == api:
+            return None
+
+    if 'Authorization' not in request.headers:
+        app.logger.info('no token, redircet to /')
+        return redirect('/')
+    
+@app.after_request
+def process_response(response):
+    try:
+        if not request.path.startswith('/static'):
+            ip = request.remote_addr
+            url = request.path
+            app.logger.info( f'ip:[{ip}] 訪問 url:[{url}] 成功' )
+    except Exception as e:
+        app.logger.error( f'ip:[{ip}] 訪問 url:[{url}] 失敗 {e}' )
+    
+    return response
 
 
 if __name__ == "__main__":

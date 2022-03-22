@@ -39,7 +39,7 @@ class Logger(object):
 
         timed_rotating_file_handler = TimedRotatingFileHandler(
             filename=LOG_PATH_ALL, when='h', encoding='utf-8')
-
+        
         timed_rotating_file_handler.setFormatter(formatter)  # 設定檔案裡寫入的格式
         
 

@@ -1,13 +1,13 @@
-from flask import Blueprint, abort, jsonify, render_template, request
+from email.mime import application
 import json
 import app.utils.EncryptUtils as EncryptUtils
 import app.utils.CookieUtils as ck
-
+from flask import Blueprint, abort, jsonify, render_template, request
 from flask_jwt_extended import JWTManager, create_access_token
 
 app_login = Blueprint('app_login', __name__)
-import logging
 
+import logging
 log = logging.getLogger(__name__)
 
 @app_login.errorhandler(404)
@@ -79,9 +79,8 @@ def login():
     
     userinfo = {
         'username': 'xx',
-        'personalname': 'yy',
-
-
+        'personalname': 'yy'
     }
     return render_template('index.html')
     # return "Hello World!"
+
