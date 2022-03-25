@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -10,7 +10,13 @@
     <script src="{{ url_for('static', filename='js/qprd.js') }}"></script>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.css') }}">
-</head>
+</head> -->
+
+{% extends "base.html" %}
+{% block title %} qpage {% endblock %}
+
+
+{% block content %}
 <body class="page-bg">
     <div class="container">
         <div class="d-flex flex-column ">
@@ -177,4 +183,5 @@
 
     </div>    
 </body>
-</html>
+
+{% endblock %}

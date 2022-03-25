@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block title %} login {% endblock %}
+
+
+{% block content %}
+<p>{{ text }}</p>
+
+<body class="page-bg">          
+    <div class="container">
+        <div class="d-flex flex-column">
+            <div class="p-2 rows">
+                <p>nav bar</p>
+            </div>
+
+            <div class="bg-w border-radius container-body">
+                <form method="POST">
+                    <div class="tc">
+                        <div class="row-group">
+                            <label for="Account">Account</label>
+                            <input class="" type="text" id="account" placeholder="Account"/>
+                        </div>
+                        <div class="row-group">
+                            <label for="password">Password</label>
+                            <input class="" type="text" id="password" placeholder="Enter password"/>
+                        </div>
+                    </div>
+                    
+                    <div class="tc">
+                        <div class="row-group">
+                            <button type="submit" id="loginBtn">Login</button> 
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+
+        </div>
+    </div>    
+</body>
+
+{% endblock %}

@@ -5,7 +5,7 @@ window.addEventListener('load',() =>{
 baseData = {}
 $(async function(){
 
-    $('#loginBtn').click(login)
+    // $('#loginBtn').click(login)
 
     async function login() {
         let account = $('#account').val()
@@ -38,7 +38,15 @@ $(async function(){
                         return view
 
                         // return res.json()
-                    }).then(tables => {console.log(tables);$('.container').html(tables)})
+                    })
+                    .then(tables => {
+                        console.log(tables)
+                        // $('html').html(tables)
+                    })
+                    // .then(tables => {
+                    //     console.log(tables)
+                    //     $('.container').html(tables)}
+                    // )
                     // .then(data => { 
                     //     console.log('stp2')
                     //     console.log(data)

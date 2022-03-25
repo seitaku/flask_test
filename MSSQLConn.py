@@ -32,6 +32,7 @@
 #     html = render_template('print_proforma_invoice.html')
 #     return html
 
+import datetime
 import os
 from dotenv import load_dotenv
 from flask import request, redirect
@@ -51,7 +52,8 @@ app = create_app('dev')
 pass_api=[
     '/',
     '/login',
-    '/creat_token'
+    '/creat_token',
+    '/creat_token_c'
 ]
 
 @app.before_request
@@ -60,13 +62,15 @@ def log_request():
         return None
 
     app.logger.info( f'request path = {request.path}' )
-    for api in pass_api:
-        if request.path == api:
-            return None
-
-    if 'Authorization' not in request.headers:
-        app.logger.info('no token, redircet to /')
-        return redirect('/')
+    # for api in pass_api:
+    #     if request.path == api:
+    #         return None
+    # print('\n\n')
+    # print(request.cookies)
+    return None
+    # if 'Authorization' not in request.headers:
+    #     app.logger.info('no token, redircet to /')
+    #     return redirect('/')
     
 @app.after_request
 def process_response(response):
@@ -80,6 +84,11 @@ def process_response(response):
     
     return response
 
+
+from flask_jwt_extended import (
+    JWTManager, jwt_required, create_access_token,
+    get_jwt_identity, get_jwt
+)
 
 if __name__ == "__main__":
     app.run(host='127.0.0.1', debug=True, port=5000)

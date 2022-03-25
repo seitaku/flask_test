@@ -11,6 +11,8 @@ from flask_jwt_extended import (
     JWTManager, jwt_required, create_access_token,
     get_jwt_identity
 )
+import app.utils.CookieUtils as ck
+from app.utils.decorators import my_token_required
 
 app_qPage = Blueprint('app_qPage', __name__)
 
@@ -84,20 +86,28 @@ def create_token():
     print('in testToken')
     username = 'sei'
     access_token = create_jwt(username)
-    # access_token = create_access_token(identity=username)
     print('token: ', access_token)
     return access_token
-    
+
+@app_qPage.route("/creat_token_cookie", methods=['GET'])
+def create_token_c():
+    print('in testToken')
+    username = 'sei'
+    access_token = create_access_token(identity=username)
+    print('token: ', access_token)
+    return ck.set_cookie(access_token, 'jwt', access_token)
 
 @app_qPage.route("/check_token", methods=['GET'])
-@jwt_required()
+@my_token_required()
+# @jwt_required()
 def check_token():
     print('in testToken')
-    print( request.headers['Authorization'] )
-    current_user = get_jwt_identity()
-    print ('current_user:', current_user)
-    token = jsonify(logged_in_as=current_user)
-    print('token: ', token)
+    print(request)
+    # print( request.headers['Authorization'] )
+    # current_user = get_jwt_identity()
+    # print ('current_user:', current_user)
+    # token = jsonify(logged_in_as=current_user)
+    # print('token: ', token)
     return 'y', 200
 
 def create_jwt(name):
