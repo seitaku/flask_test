@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">   
+   <script src="{{ url_for('static', filename='js/common.js') }}"></script>
+   <script src="{{ url_for('static', filename='js/jquery-3.6.0.min.js') }}"></script>
+   <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+   <!-- <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}"> -->
+   <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap5.1.1.css') }}"> 
+   <script src="{{ url_for('static', filename='js/bootstrap5.1.1.js') }}"></script> 
+   <title>{% block title %}{% endblock %}</title>
+</head>
+<body>
+   <div class="navbar navbar-expand navbar-dark bg-dark">
+         <button class="navbar-toggler ms-2" type="button" data-bs-toggle="collapse" data-bs-target="#navbar">
+            <span class="navbar-toggler-icon"> </span>
+         </button>
+      <div class="collapse navbar-collpase" id="navbar">
+         <div class="navbar-nav">
+            <a class="nav-item nav-link" id="login" href="/login">Login</a>
+            <a class="nav-item nav-link" id="login" href="/signUp">Sign Up</a>
+            <a class="nav-item nav-link" id="login" href="/logout">Logout</a>
+            <a class="nav-item nav-link" id="login" href="/">Home</a>
+         </div>
+      </div>
+   </div>
+
+   <div class="mt-1"></div>
+
+   <div class="collapse" id="navbarToggleExternalContent">
+      <div class="bg-dark p-4">
+        <h5 class="text-white h4">Collapsed content</h5>
+        <span class="text-muted">Toggleable via the navbar brand.</span>
+      </div>
+    </div>
+    <nav class="navbar navbar-dark bg-dark">
+      <div class="container-fluid">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+      </div>
+    </nav>
+
+
+   
+</body>
+</html>

@@ -4342,7 +4342,7 @@ textarea.form-control-lg {
   flex-basis: auto;
 }
 .navbar-expand .navbar-toggler {
-  display: none;
+  /* display: none; */
 }
 .navbar-expand .offcanvas-header {
   display: none;

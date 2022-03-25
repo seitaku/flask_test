@@ -51,7 +51,7 @@ def register():
         return(f'db連線異常')
     return flag
 
-@app_login.route("/")
+
 @app_login.route("/login", methods=['POST'])
 def login():
     try:
@@ -81,6 +81,23 @@ def login():
         'username': 'xx',
         'personalname': 'yy'
     }
+    
+    return render_template('index.html')
+    # return "Hello World!"
+
+@app_login.route("/")
+def home():
+    return render_template('home.html')
+
+@app_login.route("/logout", methods=['GET'])
+def logout():
+    try:
+        return render_template('index.html', tables={'code':0, 'msg':''})
+
+    except Exception as e:
+        # log
+        abort(404)
+    
     return render_template('index.html')
     # return "Hello World!"
 
