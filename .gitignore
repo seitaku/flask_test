@@ -5,3 +5,4 @@ initPackage.txt
 *.lock
 *.log.*
 *.log
+*.db

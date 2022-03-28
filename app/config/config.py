@@ -37,9 +37,10 @@ class DevelopmentConfig(BaseConfig):
 
 
 class TestingConfig(BaseConfig):
+    DEBUG = True
     TESTING = True
     SQLALCHEMY_TRACK_MODIFICATIONS = False
-    SQLALCHEMY_DATABASE_URI = create_sqlite_uri("test.db")
+    SQLALCHEMY_DATABASE_URI = os.environ.get('test_db')
     WTF_CSRF_ENABLED = False
 
 

@@ -1,13 +1,12 @@
 # 引用 flask 內建函式
+from os import path
 from flask import Flask, g, request
-# 引用套件
 from flask_sqlalchemy import SQLAlchemy
 # from flask_babel import Babel
 from app.config.config import config
 from flask_jwt_extended import (JWTManager, jwt_required, create_access_token,
                                 create_refresh_token, get_jwt_identity)
 from .log import Logger
-
 
 db = SQLAlchemy()
 # babel = Babel()
@@ -22,9 +21,19 @@ def create_app(config_name):
 
     register_extensions(app)
     register_blueprints(app)
+
+    from .models import UUser, Note
+    create_mydb(app, config_name)
     # register_i18n(app)
 
     return app
+
+def create_mydb(app, config_name):
+    if not path.exists('app/database.db') and config_name != 'dev':
+        db.create_all(app=app)
+        print('Created DataBase!')
+    else:
+        print('DataBase Exists!')
 
 
 def register_extensions(app):
