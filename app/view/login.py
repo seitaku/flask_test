@@ -1,6 +1,7 @@
 import traceback
+
 from app.models import UUser
-from flask import Blueprint, request, flash, abort, render_template, redirect, url_for
+from flask import Blueprint, request, flash, abort, render_template, redirect, session, url_for
 from werkzeug.security import generate_password_hash, check_password_hash
 from app import db
 from sqlalchemy import or_
@@ -75,6 +76,9 @@ def signUp():
 # """
 @app_login.route("/login", methods=['GET','POST'])
 def login():
+    # if request.method == 'GET':
+    #     if 'uname' in session_protected:
+            
     if request.method == 'POST':
         try:
             print('\n\n')
@@ -86,17 +90,23 @@ def login():
             if user:
                 if check_password_hash(user.password, password):
                     flash('Logged in successfully!', category='success')
-                    return redirect(url_for('qPage'))
+                    print('\n\n username: ',user.user_name)
+                    session['username'] = {'username':user_name,'role':1}
+                    return redirect(url_for('app_qPage.qPage'))
                 else:
-                    flash('Incorrect password, try again.', category='error')
+                    flash('Incorrect username or password, try again.', category='error')
             else:
-                flash('Accont does not exist.', category='error')
+                # flash('Please reLogin', category='relogin')
+                flash('Incorrect username or password, try again.', category='error')
 
             # access_token = create_access_token(identity=account)
             # return jsonify(access_token=access_token)
 
             # return jsonify({'code':0, 'msg':''})
-        except Exception as e:
+        except Exception as ex:
+            template = "An exception of type {0} occurred. Arguments:{1!r} \n"
+            message = template.format(type(ex).__name__, ex.args)
+            log.error('msg: ',message, traceback.format_exc())
             abort(404)
     # End login post handler
 
@@ -141,7 +151,11 @@ def home():
 @app_login.route("/logout", methods=['GET'])
 def logout():
     try:
-        return render_template('login.html', tables={'code':0, 'msg':''})
-    except Exception as e:
+        session.clear
+        return redirect(url_for('app_login.login'))
+    except Exception as ex:
+        template = "An exception of type {0} occurred. Arguments:{1!r} \n"
+        message = template.format(type(ex).__name__, ex.args)
+        log.error('msg: ',message, traceback.format_exc())
         abort(404)
 

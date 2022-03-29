@@ -17,8 +17,9 @@ class UUser(db.Model, UserMixin):
     email = db.Column(db.String(50), unique=True)
     user_name = db.Column(db.String(20), unique=True)
     password = db.Column(db.String(20))
-    status = db.Column(db.Integer)
+    status = db.Column(db.SmallInteger)
     create_by = db.Column(db.String(20))
     create_date = db.Column(db.DateTime(timezone=True), default=func.now())
     notes = db.relationship('Note')
+    levels = db.relationship('UUserLevel')
     

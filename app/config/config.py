@@ -31,8 +31,11 @@ class DevelopmentConfig(BaseConfig):
     JSON_AS_ASCII = False
 
     SQLALCHEMY_ENGINE_OPTIONS = {
-        "pool_pre_ping": True,
-        "pool_recycle": 3600,
+        'pool_pre_ping': True,
+        'pool_recycle': 300,
+        'pool_timeout': 900,
+        'pool_size': 10,
+        'max_overflow': 5,
     }
 
 
@@ -41,6 +44,9 @@ class TestingConfig(BaseConfig):
     TESTING = True
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     SQLALCHEMY_DATABASE_URI = os.environ.get('test_db')
+    PERMANENT_SESSION_LIFETIME = timedelta(days=7)
+    SESSION_PROTECTION = 'strong'
+
     WTF_CSRF_ENABLED = False
 
 
