@@ -14,30 +14,31 @@
 </head>
 <body>
    <!-- <div class="d-flex flex-row align-self-stretch"> -->
-   <!-- <div class="left_side">
-      <div class="flex-shrink-0 p-3 bg-white">
+   <div class="left_side">
+
+      <div class="flex-shrink-0 p-1 bg-white ">
          <a href="/" class="d-flex align-items-center pb-3 mb-3 link-dark text-decoration-none border-bottom">
            <svg class="bi me-2" width="30" height="24"><use xlink:href="#bootstrap"></use></svg>
            <span class="fs-5 fw-semibold">Collapsible</span>
          </a>
-         <ul class="list-unstyled ps-0">
+         <ul class="list-unstyled ps-0" id="left_menu">
            <li class="mb-1">
-             <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#home-collapse" aria-expanded="true">
+             <button class="btn btn-toggle align-items-center rounded collapsed left_menu_btn" data-bs-toggle="collapse" data-bs-target="#home-collapse" aria-expanded="true">
                Home
              </button>
-             <div class="collapse show" id="home-collapse">
+             <div class="collapse rounded-3 bg-gary left_menu_method" id="home-collapse">
                <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-                 <li><a href="#" class="link-dark rounded">Overview</a></li>
-                 <li><a href="#" class="link-dark rounded">Updates</a></li>
-                 <li><a href="#" class="link-dark rounded">Reports</a></li>
+                 <li class="py-1"><a href="#" class="link-dark rounded ps-4 text-decoration-none">Overview</a></li>
+                 <li class="py-1"><a href="#" class="link-dark rounded ps-4 text-decoration-none">Updates</a></li>
+                 <li class="py-1"><a href="#" class="link-dark rounded ps-4 text-decoration-none">Reports</a></li>
                </ul>
              </div>
            </li>
            <li class="mb-1">
-             <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#dashboard-collapse" aria-expanded="false">
+             <button class="btn btn-toggle align-items-center rounded collapsed left_menu_btn" data-bs-toggle="collapse" data-bs-target="#dashboard-collapse" aria-expanded="false">
                Dashboard
              </button>
-             <div class="collapse" id="dashboard-collapse">
+             <div class="collapse bg-gary left_menu_method" id="dashboard-collapse">
                <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
                  <li><a href="#" class="link-dark rounded">Overview</a></li>
                  <li><a href="#" class="link-dark rounded">Weekly</a></li>
@@ -47,10 +48,10 @@
              </div>
            </li>
            <li class="mb-1">
-             <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#orders-collapse" aria-expanded="false">
+             <button class="btn btn-toggle align-items-center rounded collapsed left_menu_btn" data-bs-toggle="collapse" data-bs-target="#orders-collapse" aria-expanded="false">
                Orders
              </button>
-             <div class="collapse" id="orders-collapse" style="">
+             <div class="collapse bg-gary left_menu_method" id="orders-collapse" style="">
                <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
                  <li><a href="#" class="link-dark rounded">New</a></li>
                  <li><a href="#" class="link-dark rounded">Processed</a></li>
@@ -74,9 +75,11 @@
              </div>
            </li>
          </ul>
-       </div>
-   </div> -->
+      </div>
+   
+   </div>
 
+   <!-- right side Start -->
    <div class="right_side">
       <div class="navbar navbar-expand navbar-dark bg-dark">
             <button class="navbar-toggler ms-2" type="button" data-bs-toggle="collapse" data-bs-target="#navbar">
@@ -122,7 +125,7 @@
       </div>
 
    </div>
-   <!-- </div> -->
+   <!-- right side End -->
 
    
 </body>

@@ -121,7 +121,7 @@ input {
     height: 100vh;
     z-index: 1;
     overflow-x: hidden;
-    width: 15vw;
+    width: 180px;
 }
 
 .right_side {
@@ -130,5 +130,15 @@ input {
     right: 0;
     z-index: 2;
     overflow-x: hidden;
-    width: calc(100% - 15vw);
+    width: calc(100% - 180px);
+}
+
+.bg-gary {
+    background-color: rgb(190, 190, 190)
+}
+li>button.active {
+    color: aqua;
+}
+.left_menu_method>ul>li>a:hover {
+    color: pink
 }

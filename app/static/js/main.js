@@ -5,6 +5,18 @@ window.addEventListener('load',() =>{
 baseData = {}
 $(async function(){
 
+    $(".left_menu_btn").click(function(){
+
+        $(".left_menu_method").removeClass("show")
+        // $(this).removeClass("active")
+        // $(this).addClass("active")
+        if ( $(this).hasClass("active") )
+            $(this).removeClass("active")
+        else
+            $(".left_menu_btn").removeClass("active")
+            $(this).addClass("active")
+    });
+
     // $('#loginBtn').click(login)
 
     async function login() {
