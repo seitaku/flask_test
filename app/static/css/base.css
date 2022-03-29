@@ -2,8 +2,11 @@
     box-sizing: border-box;
 }
 
-.page-bg {
+.c_content {
     background-color: cornsilk;
+    height: calc(100vh - 56px);
+    overflow: auto;
+    padding: 10px 2vw;
 }
 
 .qc {
@@ -32,7 +35,7 @@
 }
 
 .tc {
-        text-align-last: center;
+    text-align-last: center;
 }
 .text-right {
     text-align: right;
@@ -111,4 +114,21 @@ input {
 .scrollbar-primary {
     scrollbar-color: #4285F4 #F5F5F5;
     scrollbar-width: 20px ;
+}
+
+.left_side {
+    position: fixed;
+    height: 100vh;
+    z-index: 1;
+    overflow-x: hidden;
+    width: 15vw;
+}
+
+.right_side {
+    position: fixed;
+    height: 100vh;
+    right: 0;
+    z-index: 2;
+    overflow-x: hidden;
+    width: calc(100% - 15vw);
 }

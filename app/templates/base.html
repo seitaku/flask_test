@@ -7,56 +7,122 @@
    <script src="{{ url_for('static', filename='js/common.js') }}"></script>
    <script src="{{ url_for('static', filename='js/jquery-3.6.0.min.js') }}"></script>
    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
-   <!-- <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}"> -->
+   <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">
    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap5.1.1.css') }}"> 
    <script src="{{ url_for('static', filename='js/bootstrap5.1.1.js') }}"></script> 
    <title>{% block title %}{% endblock %}</title>
 </head>
 <body>
-   <div class="navbar navbar-expand navbar-dark bg-dark">
-         <button class="navbar-toggler ms-2" type="button" data-bs-toggle="collapse" data-bs-target="#navbar">
-            <span class="navbar-toggler-icon"> </span>
-         </button>
-      <div class="collapse navbar-collpase" id="navbar">
-         <div class="navbar-nav">
-            <a class="nav-item nav-link" id="login" href="/login">Login</a>
-            <a class="nav-item nav-link" id="signUp" href="/signUp">Sign Up</a>
-            <a class="nav-item nav-link" id="logout" href="/logout">Logout</a>
-            <a class="nav-item nav-link" id="home" href="/">Home</a>
+   <!-- <div class="d-flex flex-row align-self-stretch"> -->
+   <!-- <div class="left_side">
+      <div class="flex-shrink-0 p-3 bg-white">
+         <a href="/" class="d-flex align-items-center pb-3 mb-3 link-dark text-decoration-none border-bottom">
+           <svg class="bi me-2" width="30" height="24"><use xlink:href="#bootstrap"></use></svg>
+           <span class="fs-5 fw-semibold">Collapsible</span>
+         </a>
+         <ul class="list-unstyled ps-0">
+           <li class="mb-1">
+             <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#home-collapse" aria-expanded="true">
+               Home
+             </button>
+             <div class="collapse show" id="home-collapse">
+               <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                 <li><a href="#" class="link-dark rounded">Overview</a></li>
+                 <li><a href="#" class="link-dark rounded">Updates</a></li>
+                 <li><a href="#" class="link-dark rounded">Reports</a></li>
+               </ul>
+             </div>
+           </li>
+           <li class="mb-1">
+             <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#dashboard-collapse" aria-expanded="false">
+               Dashboard
+             </button>
+             <div class="collapse" id="dashboard-collapse">
+               <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                 <li><a href="#" class="link-dark rounded">Overview</a></li>
+                 <li><a href="#" class="link-dark rounded">Weekly</a></li>
+                 <li><a href="#" class="link-dark rounded">Monthly</a></li>
+                 <li><a href="#" class="link-dark rounded">Annually</a></li>
+               </ul>
+             </div>
+           </li>
+           <li class="mb-1">
+             <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#orders-collapse" aria-expanded="false">
+               Orders
+             </button>
+             <div class="collapse" id="orders-collapse" style="">
+               <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                 <li><a href="#" class="link-dark rounded">New</a></li>
+                 <li><a href="#" class="link-dark rounded">Processed</a></li>
+                 <li><a href="#" class="link-dark rounded">Shipped</a></li>
+                 <li><a href="#" class="link-dark rounded">Returned</a></li>
+               </ul>
+             </div>
+           </li>
+           <li class="border-top my-3"></li>
+           <li class="mb-1">
+             <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#account-collapse" aria-expanded="false">
+               Account
+             </button>
+             <div class="collapse" id="account-collapse" style="">
+               <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                 <li><a href="#" class="link-dark rounded">New...</a></li>
+                 <li><a href="#" class="link-dark rounded">Profile</a></li>
+                 <li><a href="#" class="link-dark rounded">Settings</a></li>
+                 <li><a href="#" class="link-dark rounded">Sign out</a></li>
+               </ul>
+             </div>
+           </li>
+         </ul>
+       </div>
+   </div> -->
+
+   <div class="right_side">
+      <div class="navbar navbar-expand navbar-dark bg-dark">
+            <button class="navbar-toggler ms-2" type="button" data-bs-toggle="collapse" data-bs-target="#navbar">
+               <span class="navbar-toggler-icon"> </span>
+            </button>
+         <div class="collapse navbar-collpase" id="navbar">
+            <div class="navbar-nav">
+               <a class="nav-item nav-link" id="login" href="/login">Login</a>
+               <a class="nav-item nav-link" id="signUp" href="/signUp">Sign Up</a>
+               <a class="nav-item nav-link" id="logout" href="/logout">Logout</a>
+               <a class="nav-item nav-link" id="home" href="/">Home</a>
+            </div>
          </div>
       </div>
+
+      <div class="container c_content">
+         {% with messages = get_flashed_messages(with_categories=true) %} 
+            {% if messages %} 
+               {% for category, message in messages %} 
+                  {% if category == 'error' %}
+                  <div class="alert alert-danger alter-dismissable fade show" role="alert">
+                     {{ message }}
+                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+                     </button>
+                  </div>
+                  {% elif category == 'relogin' %}
+                  <div class="alert alert-warning alter-dismissable fade show" role="alert">
+                     {{ message }}
+                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+                     </button>
+                  </div>
+                  {% else %}
+                  <div class="alert alert-success alter-dismissable fade show" role="alert">
+                     {{ message }}
+                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+                     </button>
+                  </div>
+                  {% endif %} 
+               {% endfor %}
+            {% endif %}
+         {% endwith %}
+         {% block content %}{% endblock %}
+      </div>
+
    </div>
-
-   {% with messages = get_flashed_messages(with_categories=true) %} 
-      {% if messages %} 
-         {% for category, message in messages %} 
-            {% if category == 'error' %}
-            <div class="alert alert-danger alter-dismissable fade show" role="alert">
-               {{ message }}
-               <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
-               </button>
-            </div>
-            {% elif category == 'relogin' %}
-            <div class="alert alert-warning alter-dismissable fade show" role="alert">
-               {{ message }}
-               <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
-               </button>
-            </div>
-            {% else %}
-            <div class="alert alert-success alter-dismissable fade show" role="alert">
-               {{ message }}
-               <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
-               </button>
-            </div>
-            {% endif %} 
-         {% endfor %}
-      {% endif %}
-   {% endwith %}
-
-   <div class="container mt-2">
-      {% block content %}{% endblock %}
-   </div>
-
+   <!-- </div> -->
 
    
 </body>

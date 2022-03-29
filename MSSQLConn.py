@@ -43,18 +43,20 @@ def log_request():
         return None
     
     app.logger.info( f'request path = [{request.path}] method = [{request.method}]' )
+    # check pass api
     for api in pass_api:
         if request.path == api:
             return None
-    # print('\n\nsession:',session.get('username') is None )
+    
     print('\n\nsession:',session.get('username')  )
 
+    # check session 
     if session.get('username') is False:
         if request.path != '/logout':
             flash('Please reLogin', category='relogin')
         return redirect(url_for('app_login.login'))
-    # print('\n\n')
-    # print(request.cookies)
+    
+
     return None
     # if 'Authorization' not in request.headers:
     #     app.logger.info('no token, redircet to /')
