@@ -74,11 +74,12 @@ def signUp():
 # """
 # from request
 # """
+@app_login.route("/")
 @app_login.route("/login", methods=['GET','POST'])
 def login():
     # if request.method == 'GET':
     #     if 'uname' in session_protected:
-            
+
     if request.method == 'POST':
         try:
             print('\n\n')
@@ -109,6 +110,11 @@ def login():
             log.error('msg: ',message, traceback.format_exc())
             abort(404)
     # End login post handler
+
+    # 若存有正確session則導向登入後首頁
+    se = session.get('username')
+    if se is not None:
+        return redirect(url_for('app_login.home'))
 
     return render_template('login.html')
 
@@ -144,14 +150,14 @@ def login():
     
 #     return render_template('login.html', text='test')
 
-@app_login.route("/")
+@app_login.route("/home")
 def home():
     return render_template('home.html')
 
 @app_login.route("/logout", methods=['GET'])
 def logout():
     try:
-        session.clear
+        session.clear()
         return redirect(url_for('app_login.login'))
     except Exception as ex:
         template = "An exception of type {0} occurred. Arguments:{1!r} \n"

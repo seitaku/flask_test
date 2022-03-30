@@ -1,5 +1,5 @@
 import os
-import datetime
+from datetime import timedelta
 
 basedir = os.path.abspath(os.path.dirname(__file__))
 
@@ -9,18 +9,20 @@ def create_sqlite_uri(db_name):
 class BaseConfig:  # 基本配置
     # 設定 JWT 密鑰
     SECRET_KEY = os.environ.get('SECRET_KEY')
-    PERMANENT_SESSION_LIFETIME = datetime.timedelta(days=14)
+    PERMANENT_SESSION_LIFETIME = timedelta(days=14)
 
     BABEL_TRANSLATION_DIRECTORIES = 'translations'
     SUPPORTED_LANGUAGES = ['zh', 'en']
     DEFAULT_LANGUAGE = 'zh'
 
-    JWT_ACCESS_TOKEN_EXPIRES = datetime.timedelta(minutes=1)
-    JWT_REFRESH_TOKEN_EXPIRES = datetime.timedelta(days=30)
+    JWT_ACCESS_TOKEN_EXPIRES = timedelta(minutes=10)
+    JWT_REFRESH_TOKEN_EXPIRES = timedelta(days=30)
     # JWT_TOKEN_LOCATION = ['cookies']
     JWT_TOKEN_LOCATION = ['headers']
     # Set True When Production Env
     JWT_COOKIE_SECURE = True
+    PERMANENT_SESSION_LIFETIME = timedelta(days=7)
+    SESSION_PROTECTION = 'strong'
 
 
 class DevelopmentConfig(BaseConfig):
@@ -38,15 +40,11 @@ class DevelopmentConfig(BaseConfig):
         'max_overflow': 5,
     }
 
-
 class TestingConfig(BaseConfig):
     DEBUG = True
     TESTING = True
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     SQLALCHEMY_DATABASE_URI = os.environ.get('test_db')
-    PERMANENT_SESSION_LIFETIME = timedelta(days=7)
-    SESSION_PROTECTION = 'strong'
-
     WTF_CSRF_ENABLED = False
 
 
