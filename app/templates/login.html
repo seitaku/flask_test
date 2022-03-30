@@ -1,30 +1,77 @@
-{% extends "base.html" %}
-{% block title %} login {% endblock %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">   
+   <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
+   <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap5.1.1.css') }}"> 
+   <script src="{{ url_for('static', filename='js/bootstrap5.1.1.js') }}"></script> 
+   <title>login</title>
+</head>
+<body>
 
-
-{% block content %}
-<div class="container">
-    <div class="d-flex flex-column justify-content-center">
+<div class="container alert">
+{% with messages = get_flashed_messages(with_categories=true) %} 
+    {% if messages %} 
+        {% for category, message in messages %} 
+            {% if category == 'error' %}
+            <div class="alert alert-danger alter-dismissable fade show" role="alert">
+                {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+                </button>
+            </div>
+            {% elif category == 'relogin' %}
+            <div class="alert alert-warning alter-dismissable fade show" role="alert">
+                {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+                </button>
+            </div>
+            {% else %}
+            <div class="alert alert-success alter-dismissable fade show" role="alert">
+                {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+                </button>
+            </div>
+            {% endif %} 
+        {% endfor %}
+    {% endif %}
+{% endwith %}
+</div>
+<div class="container main">
+    <div class="d-flex justify-content-center justify-content-center {
+        jus">
         <div class="bg-w border-radius container-body">
-            <form method="POST">
-                <div class="tc">
-                    <div class="row-group">
-                        <label for="userName">Account</label>
-                        <input class="" type="text" id="userName" name="userName" placeholder="Account"/>
-                    </div>
-                    <div class="row-group">
-                        <label for="password">Password</label>
-                        <input class="" type="password" id="password" name="password" placeholder="Password"/>
-                    </div>
+            <form method="POST" action="/login" class="login_form">
+                <h3 align="center">Login</h3>
+                <div class="form-group">
+                    <label for="userName">Account</label>
+                    <input
+                    type="text"
+                    class="form-control"
+                    id="userName"
+                    name="userName"
+                    placeholder="Account"
+                    autocomplete="false"
+                    />
                 </div>
-                
-                <div class="tc">
-                    <div class="row-group">
-                        <button type="submit" id="loginBtn">Login</button> 
-                    </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input
+                    type="password"
+                    class="form-control"
+                    id="password"
+                    name="password"
+                    placeholder="Enter password"
+                    />
+                </div>
+                <div id="submit" class="mt-1 mr-1">
+                    <button type="submit" class="btn btn-primary btn-sm">Login</button>
                 </div>
             </form>
         </div>
     </div>
 </div>
-{% endblock %}
+
+</body>
+</html>

@@ -77,9 +77,6 @@ def signUp():
 @app_login.route("/")
 @app_login.route("/login", methods=['GET','POST'])
 def login():
-    # if request.method == 'GET':
-    #     if 'uname' in session_protected:
-
     if request.method == 'POST':
         try:
             print('\n\n')
@@ -93,7 +90,7 @@ def login():
                     flash('Logged in successfully!', category='success')
                     print('\n\n username: ',user.user_name)
                     session['username'] = {'username':user_name,'role':1}
-                    return redirect(url_for('app_qPage.qPage'))
+                    return redirect(url_for('app_login.home'))
                 else:
                     flash('Incorrect username or password, try again.', category='error')
             else:

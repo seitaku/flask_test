@@ -1,8 +1,3 @@
-
-
-# db = SQLAlchemy()
-
-
 # @app.route('/favicon.ico') 
 # def favicon(): 
 #     print('path:', os.path.join(app.root_path, 'static'))
@@ -22,13 +17,12 @@ dotenv_path = os.path.join(os.path.dirname(__file__), '.flaskenv')
 if os.path.exists(dotenv_path):
     load_dotenv(dotenv_path, override=True)
 
-
-# 切換環境
+# change env ['dev', 'testing']
 from app import create_app
 # app = create_app('dev')
 app = create_app('testing')
 
-# 不驗證 token 的 api
+# skip check session list
 pass_api=[
     '/',
     '/login',
@@ -47,16 +41,15 @@ def log_request():
     for api in pass_api:
         if request.path == api:
             return None
-    
-    print('\n\nsession:',session.get('username')  )
-
+    session.pop('_flashes', None)
+    # print('\n\nsession:',session.get('username') )
+    se = session.get('username')
     # check session 
-    if session.get('username') is False:
+    if se is False or se is None:
         if request.path != '/logout':
             flash('Please reLogin', category='relogin')
         return redirect(url_for('app_login.login'))
     
-
     return None
     # if 'Authorization' not in request.headers:
     #     app.logger.info('no token, redircet to /')
@@ -82,7 +75,7 @@ def teardown_request(exception):
 
 @app.errorhandler(404)
 def handle_404_error(err):
-    print('\n\n\n BBBB錯誤')
+    print('\n\n\n EEEERRRRR錯誤')
     print('err: ',err, type(err))
     return err
 
