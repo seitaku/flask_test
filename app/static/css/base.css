@@ -136,9 +136,11 @@ input {
 .bg-gary {
     background-color: rgb(190, 190, 190)
 }
-li>button.active {
-    color: aqua;
-}
-.left_menu_method>ul>li>a:hover {
-    color: pink
+
+
+.left_menu_method>ul>li>a:hover,
+.left_menu_btn:hover,
+li>button.active,
+li>a.active {
+    color: pink !important;
 }

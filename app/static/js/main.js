@@ -4,17 +4,27 @@ window.addEventListener('load',() =>{
 })
 baseData = {}
 $(async function(){
-
+    
     $(".left_menu_btn").click(function(){
-
         $(".left_menu_method").removeClass("show")
-        // $(this).removeClass("active")
-        // $(this).addClass("active")
-        if ( $(this).hasClass("active") )
+        if ( $(this).hasClass("active") ) 
+        {
             $(this).removeClass("active")
-        else
+        }
+        else 
+        {
             $(".left_menu_btn").removeClass("active")
+            $(".left_menu_method a").removeClass("active")
             $(this).addClass("active")
+        }
+    });
+
+    $(".left_menu_method a").click(function(){
+        if ( !$(this).hasClass("active") )
+        {
+            $(".left_menu_method a").removeClass("active")
+            $(this).addClass("active")
+        }
     });
 
     // $('#loginBtn').click(login)
