@@ -1,10 +1,13 @@
+import json
 import traceback
 
-from app.models import UUser
-from flask import Blueprint, request, flash, abort, render_template, redirect, session, url_for
+from app.models import MLeftMenu, UUser, UUserLevel
+from flask import Blueprint, jsonify, request, flash, abort, render_template, redirect, session, url_for
 from werkzeug.security import generate_password_hash, check_password_hash
 from app import db
 from sqlalchemy import or_
+
+from app.utils.JsonUtils import AlchemyEncoder
 
 app_login = Blueprint('app_login', __name__)
 
@@ -86,10 +89,17 @@ def login():
 
             user = UUser.query.filter_by(user_name=user_name).filter_by(status=0).first()
             if user:
-                if check_password_hash(user.password, password):
+                # if check_password_hash(user.password, password):
+                if True:
                     flash('Logged in successfully!', category='success')
                     print('\n\n username: ',user.user_name)
-                    session['username'] = {'username':user_name,'role':1}
+                    session['userInfo'] = {'userId':user.id,'role':1}
+
+                    left_menu = leftMenu(user.id)
+                    # session['leftMenu'] = left_menu
+                    session['leftMenu'] = json.dumps(left_menu, cls=AlchemyEncoder)
+                    print('\n\n\n\n\:',session.get('leftMenu'))
+                    # return redirect(url_for('app_dashboard.leftMenu'))
                     return redirect(url_for('app_login.home'))
                 else:
                     flash('Incorrect username or password, try again.', category='error')
@@ -109,11 +119,28 @@ def login():
     # End login post handler
 
     # 若存有正確session則導向登入後首頁
-    se = session.get('username')
+    se = session.get('userInfo')
     if se is not None:
+        userId = se.get('userId')
+        log.info(f'userId:[{userId}] logging in, redirect to home page')
         return redirect(url_for('app_login.home'))
 
     return render_template('login.html')
+
+def leftMenu(userId):
+    left_menu_list = {}
+    left_menu_str = UUserLevel.query.filter_by( user_id=userId ).first()
+    if left_menu_str is None:
+        return left_menu_list
+    log.info(f'[{userId}] get leftMenu, menuId:{left_menu_str}')
+
+    left_menu_id = str(left_menu_str.leftMenu).split(',')
+    if left_menu_id is None:
+        return left_menu_list
+    
+    left_menu_list = MLeftMenu.query.filter( MLeftMenu.id.in_( left_menu_id ) ).all()
+    return left_menu_list
+
 
 # @app_login.route("/login", methods=['GET','POST'])
 # def login():
@@ -149,6 +176,10 @@ def login():
 
 @app_login.route("/home")
 def home():
+    se = session.get('userInfo')
+    if se is None:
+        return redirect(url_for('app_login.login'))
+
     return render_template('home.html')
 
 @app_login.route("/logout", methods=['GET'])
@@ -161,4 +192,3 @@ def logout():
         message = template.format(type(ex).__name__, ex.args)
         log.error('msg: ',message, traceback.format_exc())
         abort(404)
-

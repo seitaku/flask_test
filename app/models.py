@@ -1,3 +1,4 @@
+from flask import jsonify
 from . import db
 from flask_login import UserMixin
 from sqlalchemy.sql import func
@@ -11,7 +12,7 @@ class Note(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('u_user.id'))
 
 
-class UUser(db.Model, UserMixin):
+class UUser(db.Model):
     __tablename__ = 'u_user'
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(50), unique=True)
@@ -24,20 +25,43 @@ class UUser(db.Model, UserMixin):
     levels = db.relationship('UUserLevel')
 
 
-class UUserLevel(db.Model, UserMixin):
+class UUserLevel(db.Model):
     __tablename__ = 'u_user_level'
-    user_id = db.Column(db.Integer, db.ForeignKey('u_user.id'), primary_key=True)
+    id= db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('u_user.id'), unique=True)
     auth = db.Column(db.SmallInteger)
-    other = db.Column(db.SmallInteger)
+    other = db.Column(db.String(50))
+    leftMenu = db.Column(db.String(50))
     create_by = db.Column(db.String(20))
     create_date = db.Column(db.DateTime(timezone=True), default=func.now())
     
+    # def __str__(self):
+    #     obj = {
+    #         'id':self.id,
+    #         'user_id':self.user_id,
+    #         'auth':self.auth,
+    #         'other':self.other,
+    #         'leftMenu':self.leftMenu,
+    #         'create_by':self.create_by,
+    #         'create_date':self.create_date
+    #     }
+    #     return str(self)
 
-class MLeftMenu(db.Model, UserMixin):
+class MLeftMenu(db.Model):
     __tablename__ = 'm_left_menu'
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(20))
     path = db.Column(db.String(50))
     level = db.Column(db.SmallInteger)
     sorted = db.Column(db.Integer)
+    
+    # def __str__(self):
+    #     obj = {
+    #         'id':self.id,
+    #         'name':self.name,
+    #         'path':self.path,
+    #         'level':self.level,
+    #         'sorted':self.sorted
+    #     }
+    #     return str(obj)
     

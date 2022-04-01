@@ -3,5 +3,22 @@
 
 
 {% block content %} 
+{{super()}}
 <h1> This is the home page </h1>
+
+<ul>
+{% for item in left_menu_list %}
+    <li><a href="{{ item.path }}">{{ item.name }}</a></li>
+{% endfor %}
+</ul> 
+{% endblock %}
+
+
+{% block left %}
+<!--<ul>
+{% for item in left_menu_list %}
+    <li><a href="{{ item.path }}">{{ item.name }}</a></li>
+{% endfor %}
+</ul>  -->
+
 {% endblock %}

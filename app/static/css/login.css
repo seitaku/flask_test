@@ -1,0 +1,16 @@
+body {
+    background-color: cornsilk !important;
+}
+
+.main {
+    position: fixed;
+    top: 17vh;
+}
+
+.login_form {
+    width: 50vw;
+    max-width: 250px;
+}
+.login_form #submit {
+    text-align: right;
+}

@@ -33,17 +33,18 @@ pass_api=[
 
 @app.before_request
 def log_request():
+    # filter static source
     if request.path.startswith('/static'):
         return None
-    
+
     app.logger.info( f'request path = [{request.path}] method = [{request.method}]' )
-    # check pass api
+    # check api pass list
     for api in pass_api:
         if request.path == api:
             return None
-    session.pop('_flashes', None)
-    # print('\n\nsession:',session.get('username') )
-    se = session.get('username')
+    
+    # print('\n\nsession:',session.get('userInfo') )
+    se = session.get('userInfo')
     # check session 
     if se is False or se is None:
         if request.path != '/logout':
@@ -58,10 +59,15 @@ def log_request():
 @app.after_request
 def process_response(response):
     try:
+    # clear flashes data
+        session.pop('_flashes', None)
+        
         if not request.path.startswith('/static'):
             ip = request.remote_addr
             url = request.path
+            print('\n\n\nresspp:',type(response))
             app.logger.info( f'ip:[{ip}] 訪問 url:[{url}] 成功' )
+
     except Exception as e:
         app.logger.error( f'ip:[{ip}] 訪問 url:[{url}] 失敗 {e}' )
     

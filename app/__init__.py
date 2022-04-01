@@ -52,6 +52,13 @@ def register_blueprints(app):
     from app.view.qPage import app_qPage
     app.register_blueprint(app_qPage, url_prefix='/')
 
+    from app.view.dashboard import app_dashboard
+    app.register_blueprint(app_dashboard, url_prefix='/')
+
+    from app.view.template_filter import app_template_filter
+    app.register_blueprint(app_template_filter)
+    
+
 
 # def register_extensions(app):
 #     """Register extensions with the Flask application."""
