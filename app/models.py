@@ -31,7 +31,7 @@ class UUserLevel(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('u_user.id'), unique=True)
     auth = db.Column(db.SmallInteger)
     other = db.Column(db.String(50))
-    leftMenu = db.Column(db.String(50))
+    left_menu = db.Column(db.String(50))
     create_by = db.Column(db.String(20))
     create_date = db.Column(db.DateTime(timezone=True), default=func.now())
     
@@ -50,9 +50,11 @@ class UUserLevel(db.Model):
 class MLeftMenu(db.Model):
     __tablename__ = 'm_left_menu'
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(20))
+    code = db.Column(db.String(10), unique=True)
+    name = db.Column(db.String(10))
     path = db.Column(db.String(50))
     level = db.Column(db.SmallInteger)
+    parent = db.Column(db.Integer)
     sorted = db.Column(db.Integer)
     
     # def __str__(self):

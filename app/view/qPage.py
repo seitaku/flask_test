@@ -1,5 +1,3 @@
-import os
-from unittest import result
 from flask import Blueprint, abort, redirect, send_from_directory, jsonify, Response, url_for
 from flask import Flask, render_template, session, request
 import jwt
@@ -51,12 +49,16 @@ def nquery():
         sql = """
             select id, name from u_user
         """
+        # sql = f"""
+        #     select * from u_user where (email='{email}' || user_name='{user_name}') and status = 0
+        # """
         result = {}# db.engine.execute(sql).fetchall()
 
         for item in result:
             print('item id:'+str(item.id))
             print('item name:'+str(item.name))
-    return 'nquery ok'
+    return render_template('qprd.html')
+    # return 'nquery ok'
 
 
 

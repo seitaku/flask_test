@@ -13,33 +13,35 @@
    <title>{% block title %}{% endblock %}</title>
 </head>
 <body>
-
-  <ul>
-    <p> {% set leftMenu=session['leftMenu'] %}</p>
-    <p> {{ leftMenu|toJson() }} </p>
-    {% for menu in leftMenu|toJson() %}
-      <p>{{menu}}</p>
-    {% endfor %}
-  </ul>
+  {% set leftMenu=session['leftMenu'] %} 
+  {% set menu_list = leftMenu|toJson() %}
   <div class="left_side">
     <div class="flex-shrink-0 p-1 bg-white ">
-      <a href="{{ url_for('app_login.home')}}" class="d-flex align-items-center pb-3 mb-3 link-dark text-decoration-none border-bottom">
+      <a href="{{ url_for('app_login.home') }}" class="d-flex align-items-center pb-3 mb-3 link-dark text-decoration-none border-bottom">
         <svg class="bi me-2" width="30" height="24"><use xlink:href="#bootstrap"></use></svg>
         <span class="fs-5 fw-semibold">Collapsible</span>
       </a>
       <ul class="list-unstyled ps-0" id="left_menu">
+        
+        {% for menu in menu_list %}
         <li class="mb-1">
-          <button class="btn btn-toggle align-items-center rounded collapsed left_menu_btn" data-bs-toggle="collapse" data-bs-target="#home-collapse" aria-expanded="true">
-            Home
+          {% if menu.level==1 %}
+          {% set main_code = menu.code %}
+          <button class="btn btn-toggle align-items-center rounded collapsed left_menu_btn" data-bs-toggle="collapse" data-bs-target="#{{ main_code }}-collapse" aria-expanded="true">
+              {{ menu.name }}
           </button>
-          <div class="collapse rounded-3 bg-gary left_menu_method" id="home-collapse">
+          {% endif %}
+          <div class="collapse rounded-3 bg-gary left_menu_method" id="{{ main_code }}-collapse">
             <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-              <li class="py-1"><a href="#" class="link-dark rounded ps-4 text-decoration-none">Overview</a></li>
-              <li class="py-1"><a href="#" class="link-dark rounded ps-4 text-decoration-none">Updates</a></li>
-              <li class="py-1"><a href="#" class="link-dark rounded ps-4 text-decoration-none">Reports</a></li>
+              {% for menu2 in menu_list %}
+              {% if menu2.level==2 and menu2.parent==menu.id %}
+                <li class="py-1"><a href="{{ menu2.path }}" class="link-dark rounded ps-4 text-decoration-none">{{ menu2.name }}</a></li>
+              {% endif %}
+              {% endfor %}
             </ul>
           </div>
         </li>
+        {% endfor %}
         <li class="mb-1">
           <button class="btn btn-toggle align-items-center rounded collapsed left_menu_btn" data-bs-toggle="collapse" data-bs-target="#dashboard-collapse" aria-expanded="false">
             Dashboard

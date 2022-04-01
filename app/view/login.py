@@ -129,16 +129,20 @@ def login():
 
 def leftMenu(userId):
     left_menu_list = {}
-    left_menu_str = UUserLevel.query.filter_by( user_id=userId ).first()
+    left_menu_str = UUserLevel.query.filter_by( user_id=userId ).with_entities(UUserLevel.left_menu).first()[0]
     if left_menu_str is None:
         return left_menu_list
-    log.info(f'[{userId}] get leftMenu, menuId:{left_menu_str}')
+    log.info(f'userId:[{userId}] get leftMenu, menu_id_str:[{left_menu_list}]')
 
-    left_menu_id = str(left_menu_str.leftMenu).split(',')
+    left_menu_id = str(left_menu_str).split(',')
     if left_menu_id is None:
         return left_menu_list
     
-    left_menu_list = MLeftMenu.query.filter( MLeftMenu.id.in_( left_menu_id ) ).all()
+    if 'all' in left_menu_id:
+        left_menu_list = MLeftMenu.query.all()
+    else:
+        left_menu_list = MLeftMenu.query.filter( MLeftMenu.id.in_( left_menu_id ) ).all()
+    
     return left_menu_list
 
 

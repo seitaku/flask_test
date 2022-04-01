@@ -65,7 +65,6 @@ def process_response(response):
         if not request.path.startswith('/static'):
             ip = request.remote_addr
             url = request.path
-            print('\n\n\nresspp:',type(response))
             app.logger.info( f'ip:[{ip}] 訪問 url:[{url}] 成功' )
 
     except Exception as e:
