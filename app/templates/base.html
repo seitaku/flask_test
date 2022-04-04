@@ -13,8 +13,15 @@
    <title>{% block title %}{% endblock %}</title>
 </head>
 <body>
-  {% set leftMenu=session['leftMenu'] %} 
+  {% set leftMenu = session['leftMenu'] %} 
   {% set menu_list = leftMenu|toJson() %}
+
+  {% set api = url_for(request.endpoint) %} 
+  {% set parent = api|getParent(menu_list) %}
+  {% set show = 'show' %}
+  {% set active = 'active' %}
+
+
   <div class="left_side">
     <div class="flex-shrink-0 p-1 bg-white ">
       <a href="{{ url_for('app_login.home') }}" class="d-flex align-items-center pb-3 mb-3 link-dark text-decoration-none border-bottom">
@@ -27,15 +34,17 @@
         <li class="mb-1">
           {% if menu.level==1 %}
           {% set main_code = menu.code %}
-          <button class="btn btn-toggle align-items-center rounded collapsed left_menu_btn" data-bs-toggle="collapse" data-bs-target="#{{ main_code }}-collapse" aria-expanded="true">
+          <button class="btn btn-toggle align-items-center rounded left_menu_btn {{ active|css_(menu.id, parent) }}" data-bs-toggle="collapse" data-bs-target="#{{ main_code }}-collapse" aria-expanded="true">
               {{ menu.name }}
           </button>
           {% endif %}
-          <div class="collapse rounded-3 bg-gary left_menu_method" id="{{ main_code }}-collapse">
+          <div class="collapse rounded-3 bg-gary left_menu_method {{ show|css_(menu.id, parent) }}" id="{{ main_code }}-collapse">
             <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
               {% for menu2 in menu_list %}
               {% if menu2.level==2 and menu2.parent==menu.id %}
-                <li class="py-1"><a href="{{ menu2.path }}" class="link-dark rounded ps-4 text-decoration-none">{{ menu2.name }}</a></li>
+              
+                <li class="py-1"><a href="{{ menu2.path }}" class="link-dark rounded ps-4 text-decoration-none {{ active|css_(menu2.path, api) }}">{{ menu2.name }}</a></li>
+
               {% endif %}
               {% endfor %}
             </ul>
