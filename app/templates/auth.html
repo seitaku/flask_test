@@ -28,7 +28,7 @@
                 <div class="bg-w border-radius container-body">
                     <div class="rows">
                         <div class="row-group">
-                            <span>帳號 : </span><input class="" type="text" id="userName" name="userName"/>
+                            <span>帳號 : </span><input class="" type="text" id="userName" name="userName" value="{{condition.user_name}}"/>
                         </div>
                         <div class="row-group">
                             <span>信箱 : </span><input class="" type="text" id="email" name="email"/>
@@ -37,14 +37,15 @@
                     <div class="rows">
                         <div class="row-group">
                             <span>狀態 : </span>
-                            <select id="status" for="status">
-                                <option value="" {{ "selected" if status == '' }}>全部</option>
-                                <option value="1" {{ "selected" if status == 1 }}>暫停</option>
-                                <option value="0"{{ "selected" if status == 0 }} >啟動</option>
+                            <select id="status" name="status">
+                                <option value="" {{ "selected" if condition.status == '' }}>全部</option>
+                                <option value="1" {{ "selected" if condition.status == '1' }}>暫停</option>
+                                <option value="0"{{ "selected" if condition.status == '0' }} >啟動</option>
                             </select>
                         </div>
                         <div class="row-group">
-                            <span>權限 : </span><input class="" type="text" id="auth"/>
+                            <span>權限 : </span>
+                            <input class="" type="text" id="auth"/>
                         </div>
                     </div>
                     <div class="rows">
@@ -71,6 +72,12 @@
                     </tr>
                     </thead>
                     <tbody>
+                        {% if user_list|length == 0 %}
+                        <tr>
+                            <td colspan="5"><label class="t-gray">No Data</label></td>
+                        </tr>
+                        {% endif %}
+                        
                         {% for user in user_list %}
                         <tr>
                             <td scope="row">{{ loop.index }}</td>

@@ -140,6 +140,9 @@
 .bg-gary {
     background-color: rgb(190, 190, 190)
 }
+.t-gray {
+    color: rgb(190, 190, 190)
+}
 
 
 .left_menu_method>ul>li>a:hover,
