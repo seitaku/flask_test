@@ -7,6 +7,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from app import db
 from sqlalchemy import or_
 from app.utils.JsonUtils import AlchemyEncoder
+from flask_login import login_user, login_required, current_user
 
 app_login = Blueprint('app_login', __name__)
 
@@ -15,40 +16,39 @@ log = logging.getLogger(__name__)
 
 @app_login.route("/signUp", methods=['GET','POST'])
 def signUp():
-    if request.method == 'POST':
-        try:
-            print()
-            if (request.method == 'POST'):
-                print(request.form)
-                email = request.form.get('email')
-                user_name = request.form.get('userName')
-                password1 = request.form.get('password1')
-                password2 = request.form.get('password2')
+    try:
+        print()
+        if (request.method == 'POST'):
+            print(request.form)
+            email = request.form.get('email')
+            user_name = request.form.get('userName')
+            password1 = request.form.get('password1')
+            password2 = request.form.get('password2')
 
-                user = UUser.query.filter( or_(UUser.email==email, UUser.user_name==user_name) ).filter_by(status=0).first()
+            user = UUser.query.filter( or_(UUser.email==email, UUser.user_name==user_name) ).filter_by(status=0).first()
 
-                if user:
-                    flash('Email or UserName already exists.', category='error')
-                elif len(email) < 4:
-                    flash('Email must be greater than 3 characters.', category='error')
-                elif len(user_name) < 2:
-                    flash('First name must be greater than 1 character.', category='error')
-                elif password1 != password2:
-                    flash('Passwords don\'t match.', category='error')
-                elif len(password1) < 6:
-                    flash('Password must be at least 6 characters.', category='error')
-                else:
-                    new_user = UUser(email=email, user_name=user_name, password=generate_password_hash(
-                        password1, method='sha384'), status=0, create_by='system')
-                    db.session.add(new_user)
-                    db.session.commit()
-                    flash('Account created!', category='success')
-                    return redirect(url_for('login'))
-        except Exception as ex:
-            template = "An exception of type {0} occurred. Arguments:{1!r} \n"
-            message = template.format(type(ex).__name__, ex.args)
-            log.error('msg: ',message, traceback.format_exc())
-            return(f'錯誤頁面')
+            if user:
+                flash('Email or UserName already exists.', category='error')
+            elif len(email) < 4:
+                flash('Email must be greater than 3 characters.', category='error')
+            elif len(user_name) < 2:
+                flash('First name must be greater than 1 character.', category='error')
+            elif password1 != password2:
+                flash('Passwords don\'t match.', category='error')
+            elif len(password1) < 6:
+                flash('Password must be at least 6 characters.', category='error')
+            else:
+                new_user = UUser(email=email, user_name=user_name, password=generate_password_hash(
+                    password1, method='sha384'), status=0, create_by='system')
+                db.session.add(new_user)
+                db.session.commit()
+                flash('Account created!', category='success')
+                return redirect(url_for('app_login.login'))
+    except Exception as ex:
+        template = "An exception of type {0} occurred. Arguments:{1!r} \n"
+        message = template.format(type(ex).__name__, ex.args)
+        log.error('msg: ',message, traceback.format_exc())
+        return(f'錯誤頁面')
     # End sign_up post handler
 
     return render_template('sign_up.html')

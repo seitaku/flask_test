@@ -25,3 +25,10 @@ def css(self, *p):
         if ( p[0] == p[1] ):
             return self
     return ''
+
+@app_template_filter.app_template_filter(name="getUserStatus")
+def getUserStatus(self, *p):
+    return {
+        0: '啟動',
+        1: '暫停'
+        }.get(self,'-')

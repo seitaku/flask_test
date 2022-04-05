@@ -16,6 +16,8 @@
 }
 .rows {
     display: flex;
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
 .row-group {
     flex: 1 1 0%;
@@ -30,7 +32,7 @@
 }
 
 .container-body {
-    padding: 20px 30px;
+    padding: 15px 20px;
     margin-bottom: 20px;
 }
 
@@ -52,9 +54,10 @@
     flex: 1;
 }
 
-input {
+.row-group>input, .row-group>select {
     margin-left: 10px !important;
     border-radius: 5px;
+    min-width: 150px;
 }
 
 .table-result {
@@ -71,7 +74,8 @@ input {
     height: 70px;
 }
 
-.table-result>table>thead>tr>th {
+.table-result>table>thead>tr>th,
+.table-result>table>tbody>tr>td {
     vertical-align: middle;
     text-align: center;
     /* min-width: 100px; */

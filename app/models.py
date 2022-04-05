@@ -18,7 +18,7 @@ class UUser(db.Model):
     email = db.Column(db.String(50), unique=True)
     user_name = db.Column(db.String(20), unique=True)
     password = db.Column(db.String(20))
-    status = db.Column(db.SmallInteger)
+    status = db.Column(db.SmallInteger) #0啟用 1暫停
     create_by = db.Column(db.String(20))
     create_date = db.Column(db.DateTime(timezone=True), default=func.now())
     notes = db.relationship('Note')
