@@ -32,3 +32,10 @@ def getUserStatus(self, *p):
         0: '啟動',
         1: '暫停'
         }.get(self,'-')
+
+
+@app_template_filter.app_template_filter(name="getRoloName")
+def getRoloName(self, rolo_list):
+    for rolo in rolo_list:
+        if (self == rolo.id):
+            return rolo.name

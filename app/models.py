@@ -35,18 +35,6 @@ class UUserLevel(db.Model):
     create_by = db.Column(db.String(20))
     create_date = db.Column(db.DateTime(timezone=True), default=func.now())
     
-    # def __str__(self):
-    #     obj = {
-    #         'id':self.id,
-    #         'user_id':self.user_id,
-    #         'auth':self.auth,
-    #         'other':self.other,
-    #         'leftMenu':self.leftMenu,
-    #         'create_by':self.create_by,
-    #         'create_date':self.create_date
-    #     }
-    #     return str(self)
-
 class MLeftMenu(db.Model):
     __tablename__ = 'm_left_menu'
     id = db.Column(db.Integer, primary_key=True)
@@ -56,14 +44,9 @@ class MLeftMenu(db.Model):
     level = db.Column(db.SmallInteger)
     parent = db.Column(db.Integer)
     sorted = db.Column(db.Integer)
-    
-    # def __str__(self):
-    #     obj = {
-    #         'id':self.id,
-    #         'name':self.name,
-    #         'path':self.path,
-    #         'level':self.level,
-    #         'sorted':self.sorted
-    #     }
-    #     return str(obj)
-    
+
+class UUserRolo(db.Model):
+    __tablename__ = 'u_user_role'
+    id = db.Column(db.Integer, primary_key=True)
+    code = db.Column(db.String(10), unique=True)
+    name = db.Column(db.String(10))

@@ -28,13 +28,8 @@
                 <div class="bg-w border-radius container-body">
                     <div class="rows">
                         <div class="row-group">
-                            <span>帳號 : </span><input class="" type="text" id="userName" name="userName" value="{{condition.user_name}}"/>
+                            <span>帳號 : </span><input class="" type="text" id="userName" name="userName" value="{{ condition.user_name or '' }}"/>
                         </div>
-                        <div class="row-group">
-                            <span>信箱 : </span><input class="" type="text" id="email" name="email"/>
-                        </div>
-                    </div>
-                    <div class="rows">
                         <div class="row-group">
                             <span>狀態 : </span>
                             <select id="status" name="status">
@@ -43,9 +38,17 @@
                                 <option value="0"{{ "selected" if condition.status == '0' }} >啟動</option>
                             </select>
                         </div>
+                    </div>
+                    <div class="rows">
+                        
                         <div class="row-group">
-                            <span>權限 : </span>
-                            <input class="" type="text" id="auth"/>
+                            <span>角色 : </span>
+                            <select id="auth" name="auth">
+                                <option value=""></option>
+                                {% for rolo in rolo_list %}
+                                <option value="{{ rolo.id }}" {{ "selected" if condition.auth == rolo.id|string }}>{{ rolo.name }}</option>
+                                {% endfor %}
+                            </select>
                         </div>
                     </div>
                     <div class="rows">
@@ -94,7 +97,7 @@
                                 </td>
                             <td>{{ user.email }}</td>
                             <td>{{ user.status|getUserStatus() }}</td>
-                            <td>{{ user.auth }}</td>
+                            <td>{{ user.auth|getRoloName(rolo_list) }}</td>
                         </tr>
                         {% endfor %}
 
