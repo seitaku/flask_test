@@ -15,7 +15,7 @@
 {% extends "base.html" %}
 
 {% block script %}
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/auth.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/rolo.css') }}">
 {% endblock %}
 
 {% block title %} qpage {% endblock %}
@@ -24,7 +24,7 @@
 {% block content %}
     <div class="container">
         <div class="d-flex flex-column ">
-            <form method="GET" action="{{ url_for('app_auth.home') }}">
+            <form method="GET" action="{{ url_for('app_rolo.home') }}">
                 <div class="bg-w border-radius container-body">
                     <div class="rows">
                         <div class="row-group">
@@ -43,7 +43,7 @@
                         
                         <div class="row-group">
                             <span>角色 : </span>
-                            <select id="auth" name="auth">
+                            <select id="roloId" name="roloId">
                                 <option value=""></option>
                                 {% for rolo in rolo_list %}
                                 <option value="{{ rolo.id }}" {{ "selected" if condition.auth == rolo.id|string }}>{{ rolo.name }}</option>
@@ -97,7 +97,7 @@
                                 </td>
                             <td>{{ user.email }}</td>
                             <td>{{ user.status|getUserStatus() }}</td>
-                            <td>{{ user.auth|getRoloName(rolo_list) }}</td>
+                            <td>{{ user.rolo_id|getRoloName(rolo_list) or '-' }}</td>
                         </tr>
                         {% endfor %}
 

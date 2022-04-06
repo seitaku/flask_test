@@ -58,8 +58,8 @@ def register_blueprints(app):
     from app.view.template_filter import app_template_filter
     app.register_blueprint(app_template_filter)
 
-    from app.view.auth import app_auth
-    app.register_blueprint(app_auth, url_prefix='/auth/')
+    from app.view.rolo import app_rolo
+    app.register_blueprint(app_rolo, url_prefix='/rolo')
     
     
 

@@ -9,25 +9,25 @@ from app import db
 from sqlalchemy import or_, and_, join, outerjoin
 from app.utils.JsonUtils import AlchemyEncoder
 
-app_auth = Blueprint('app_auth', __name__)
+app_rolo = Blueprint('app_rolo', __name__)
 
 import logging
 log = logging.getLogger(__name__)
 
 
-@app_auth.route("/")
-@app_auth.route("/q", methods=['GET','POST'])
+@app_rolo.route("/")
+@app_rolo.route("/q", methods=['GET','POST'])
 def home():
     try:
         user_name = request.args.get('userName')
-        auth = request.args.get('auth')
+        rolo_id = request.args.get('roloId')
         status = request.args.get('status')
 
         if status is None:
             status= str(0)
         condition = {}
         condition['user_name']=user_name
-        condition['auth']=auth
+        condition['rolo_id']=rolo_id
         condition['status']=status
         print('\n\ncondition:',condition)
         log.info('condition:', condition)
@@ -46,10 +46,10 @@ def home():
     # End login post handler
 
     print('\n\nre condition :',condition)
-    return render_template('auth.html', user_list=user_list, condition=condition, rolo_list=rolo_list)
+    return render_template('rolo.html', user_list=user_list, condition=condition, rolo_list=rolo_list)
 
 
-@app_auth.route("/update", methods=['GET','POST'])
+@app_rolo.route("/update", methods=['GET','POST'])
 def update():
     cb = request.form.getlist('user_checkbox')
     print('\n\ncb:',cb)
@@ -57,7 +57,7 @@ def update():
         pass
         # return None
     print('\n\n:','in update')
-    return redirect(url_for('app_auth.home'))
+    return redirect(url_for('app_rolo.home'))
 
 
 def queryData(condition):
@@ -74,21 +74,21 @@ def queryData(condition):
 
         userId = session['userInfo'].get('userId')
         user_name = condition['user_name']
-        auth = condition['auth']
+        rolo_id = condition['rolo_id']
         status = condition['status']
 
         sql = f"""
-                select u.id,u.email,u.user_name,u.status, ul.auth,ul.create_by  
+                select u.id,u.email,u.user_name,u.status, ul.rolo_id,ul.create_by  
                 from u_user u left join u_user_level ul on u.id = ul.user_id
-                where (ul.auth> (
-                    SELECT u.auth FROm u_user_level u where id={userId}) or ul.auth is null)
+                where (ul.rolo_id> (
+                    SELECT ul2.rolo_id FROm u_user_level ul2 where id={userId}) or ul.rolo_id is null)
             """
 
         if user_name is not None and len(user_name) > 0:
             sql += f' and u.user_name = \'{user_name}\''
 
-        if auth is not None and len(auth) > 0:
-            sql += f' and ul.auth = {int(auth)}'
+        if rolo_id is not None and len(rolo_id) > 0:
+            sql += f' and ul.rolo_id = {int(rolo_id)}'
         print('status:',status)
         if status is not None and len(status) > 0:
             sql += f' and u.status = {status}'

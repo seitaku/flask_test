@@ -29,7 +29,7 @@ class UUserLevel(db.Model):
     __tablename__ = 'u_user_level'
     id= db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('u_user.id'), unique=True)
-    auth = db.Column(db.SmallInteger)
+    rolo_id = db.Column(db.SmallInteger)
     other = db.Column(db.String(50))
     left_menu = db.Column(db.String(50))
     create_by = db.Column(db.String(20))
