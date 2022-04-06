@@ -85,7 +85,7 @@
                         <tr>
                             <td scope="row">{{ loop.index }}</td>
                             <td>
-                                <div class="form-check">
+                                <!-- <div class="form-check">
                                     <input class="form-check-input position-relative start-20" 
                                     type="checkbox" 
                                     value="{{ user.user_name }}"
@@ -93,8 +93,9 @@
                                     <label class="form-check-label" for="user_checkbox">
                                         {{ user.user_name }}
                                     </label>
-                                </div>
-                                </td>
+                                </div> -->
+                                {{ user.user_name }}
+                            </td>
                             <td>{{ user.email }}</td>
                             <td>{{ user.status|getUserStatus() }}</td>
                             <td>{{ user.rolo_id|getRoloName(rolo_list) or '-' }}</td>
