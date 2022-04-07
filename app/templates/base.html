@@ -79,9 +79,9 @@
          <div class="collapse navbar-collpase" id="navbar">
             <div class="navbar-nav">
                <!-- <a class="nav-item nav-link" id="login" href="/login">Login</a> -->
-               <a class="nav-item nav-link" id="signUp" href="/signUp">Sign Up</a>
+               <!-- <a class="nav-item nav-link" id="signUp" href="/signUp">Sign Up</a> -->
                <a class="nav-item nav-link" id="logout" href="{{ url_for('app_login.logout') }}">Logout</a>
-               <a class="nav-item nav-link" id="home" href="{{ url_for('app_login.login') }}">Home</a>
+               <!-- <a class="nav-item nav-link" id="home" href="{{ url_for('app_login.login') }}">Home</a> -->
             </div>
          </div>
       </div>
@@ -112,14 +112,8 @@
                {% endfor %}
             {% endif %}
          {% endwith %}
-         {% block content %}
-         <h1>base  ss</h1>
-         {% if left_menu_list|length > 0 %}
-         <p>{{left_menu_list}} is not None</p>
-         {% set myset=left_menu_list %}
-         <p>{{myset}} is not None</p>
 
-         {% endif %}
+         {% block content %}
          {% endblock %}
       </div>
 
