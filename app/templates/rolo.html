@@ -25,24 +25,22 @@
     <div class="container">
         <div class="d-flex flex-column ">
             <form method="GET" action="{{ url_for('app_rolo.home') }}">
-                <div class="bg-w border-radius container-body">
+                <div class="bg-w border-radius container-body query-container">
                     <div class="rows">
                         <div class="row-group">
-                            <span>帳號 : </span><input class="" type="text" id="userName" name="userName" value="{{ condition.user_name or '' }}"/>
+                            <label>帳號 : </label>
+                            <input class="" type="text" id="userName" name="userName" value="{{ condition.user_name or '' }}"/>
                         </div>
                         <div class="row-group">
-                            <span>狀態 : </span>
+                            <label>狀態 : </label>
                             <select id="status" name="status">
                                 <option value="" {{ "selected" if condition.status == '' }}>全部</option>
                                 <option value="1" {{ "selected" if condition.status == '1' }}>暫停</option>
                                 <option value="0"{{ "selected" if condition.status == '0' }} >啟動</option>
                             </select>
                         </div>
-                    </div>
-                    <div class="rows">
-                        
                         <div class="row-group">
-                            <span>角色 : </span>
+                            <label>角色 : </label>
                             <select id="roloId" name="roloId">
                                 <option value=""></option>
                                 {% for rolo in rolo_list %}
@@ -53,7 +51,7 @@
                     </div>
                     <div class="rows">
                         <div class="row-group text-right">
-                            <button id="queryBtn">查詢</button> 
+                            <button type="submit" class="btn btn-primary btn-sm qbtn">查詢</button>
                         </div>
                     </div>
                 </div>
@@ -61,7 +59,7 @@
 
             <div class="bg-w border-radius container-body">
             
-            <button id="updata">修改</button>
+            <button type="button" class="btn btn-primary btn-sm mbtn">修改</button>
 
             <div class="table-result stichkyTable scrollbar-primary">
                 <table class="table">

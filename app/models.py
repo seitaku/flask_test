@@ -52,14 +52,22 @@ class UUserRolo(db.Model):
     name = db.Column(db.String(10))
 
 
+
+class PProductCatalogue(db.Model):
+    __tablename__ = 'p_product_catalogue'
+    id = db.Column(db.Integer, primary_key=True)
+    prd_id = db.Column(db.Integer, db.ForeignKey('p_product_info.id'))
+    prd_code = db.Column(db.String(20), db.ForeignKey('p_product_info.code'))
+    customer_id = db.Column(db.Integer, db.ForeignKey('c_customer_info.id'))
+    customer_prd_code = db.Column(db.String(20), nullable=True)
+    customer_prd_name = db.Column(db.String(50), nullable=True)
+    
+
 class PProductInfo(db.Model):
     __tablename__ = 'p_product_info'
     id = db.Column(db.Integer, primary_key=True, autoincrement = True)
     code = db.Column(db.String(20), unique=True)
     name = db.Column(db.String(50))
-    customer_prd_code = db.Column(db.String(20), nullable=True)
-    customer_prd_name = db.Column(db.String(50), nullable=True)
-    customer_id = db.Column(db.Integer, nullable=True) 
     specification = db.Column(db.String(100)) # 規格
     quantity = db.Column(db.Integer)
     product_unit = db.Column(db.String(10))
@@ -75,7 +83,7 @@ class CCustomerInfo(db.Model):
     __tablename__ = 'c_customer_info'
     id = db.Column(db.Integer, primary_key=True, autoincrement = True)
     code = db.Column(db.String(20), unique=True)
-    name = db.Column(db.String(50))
+    name = db.Column(db.String(50), nullable=True)
     short_name = db.Column(db.String(20))
     type = db.Column(db.String(10), nullable=True)
     country = db.Column(db.String(50), nullable=True)
@@ -86,3 +94,11 @@ class CCustomerInfo(db.Model):
     create_date = db.Column(db.DateTime(timezone=True))
     update_by = db.Column(db.String(20))
     update_date = db.Column(db.DateTime(timezone=True), default=func.now())
+
+
+class LogLogin(db.Model):
+    __tablename__ = 'log_login'
+    id = db.Column(db.Integer, primary_key=True, autoincrement = True)
+    user_id = db.Column(db.Integer)
+    ip = db.Column(db.String(20))
+    log_date = db.Column(db.DateTime(timezone=True), default=func.now())

@@ -1,0 +1,115 @@
+{% extends "base.html" %}
+
+{% block script %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/cusMgmt.css') }}">
+{% endblock %}
+
+{% block title %} qpage {% endblock %}
+
+
+{% block content %}
+    <div class="container">
+        <div class="d-flex flex-column ">
+            <form method="GET" action="{{ url_for('app_customerMgmt.query') }}">
+                <div class="bg-w border-radius container-body query-container">
+                    <div class="rows">
+                        <div class="row-group">
+                            <label>客戶代號 : </label>
+                            <input class="" type="text" name="cusCode" value="{{ condition.code or '' }}"/>
+                        </div>
+                        <div class="row-group">
+                            <label>客戶簡稱 : </label>
+                            <input class="" type="text" name="shortName" value="{{ condition.short_name or '' }}"/>
+                        </div>
+                        <div class="row-group">
+                        </div>
+                    </div>
+                    <div class="rows">
+                        <div class="row-group">
+                            <label>國家 : </label>
+                            <select id="country" name="country" js-select-size="4">
+                                <option value="" ></option>
+                                {% for country in country_list %}
+                                <option value="{{ country }}" {{ "selected" if condition.country == country|string }}>{{ country }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="row-group">
+                            <label>地區 : </label>
+                            <select id="region" name="region">
+                                <option value=""></option>
+                                {% for region in region_list %}
+                                <option value="{{ region }}" {{ "selected" if condition.region == region|string }}>{{ region }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="row-group">
+                            <label>狀態 : </label>
+                            <select id="status" name="status">
+                                <option value=""></option>
+                                {% for rolo in rolo_list %}
+                                <option value="{{ rolo.id }}" {{ "selected" if condition.auth == rolo.id|string }}>{{ rolo.name }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                    <div class="rows">
+                        <div class="row-group text-right">
+                            <button type="submit" class="btn btn-primary btn-sm qbtn">查詢</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            
+
+            <div class="bg-w border-radius container-body">
+            <div class="table-result stichkyTable scrollbar-primary">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">客戶代號</th>
+                        <!-- <th scope="col">客戶名稱</th> -->
+                        <th scope="col">客戶簡稱</th>
+                        <th scope="col">類型</th>
+                        <th scope="col">國家</th>
+                        <th scope="col">地區</th>
+                        <th scope="col">地址</th>
+                        <th scope="col">狀態</th>
+                        <th scope="col">更新日期</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% if cus_list|length == 0 %}
+                    <tr>
+                        <td colspan="9"><label class="t-gray">No Data</label></td>
+                    </tr>
+                    {% endif %}
+
+                    {% for cus in cus_list %}
+                    <tr>
+                        <td scope="row">{{ loop.index }}</th>
+                        <td>{{ cus.code }}</td>
+                        <!-- <td>{{ cus.name }}</td> -->
+                        <td>{{ cus.short_name }}</td>
+                        <td>{{ cus.type or '-' }}</td>
+                        <td>{{ cus.country or '-' }}</td>
+                        <td>{{ cus.region or '-' }}</td>
+                        <td>{{ cus.address or '-' }}</td>
+                        <td>{{ cus.status }}</td>
+                        <td>{{ cus.update_date.strftime('%Y-%m-%d') }}</td>
+                    </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            </div>
+
+
+
+
+        </div>
+
+    </div>
+
+{% endblock %}

@@ -72,7 +72,7 @@ def login():
                 # if check_password_hash(user.password, password):
                 if True:
                     flash('Logged in successfully!', category='success')
-                    session['userInfo'] = {'userId':user.id,'role':1}
+                    session['userInfo'] = {'userId':user.id,'userName':user.user_name}
 
                     left_menu = leftMenu(user.id)
                     session['leftMenu'] = json.dumps(left_menu, cls=AlchemyEncoder)

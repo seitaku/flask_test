@@ -2,6 +2,10 @@
     box-sizing: border-box;
 }
 
+.query-container {
+    font-size: .9rem
+}
+
 .c_content {
     background-color: cornsilk;
     height: calc(100vh - 56px);
@@ -16,9 +20,20 @@
 }
 .rows {
     display: flex;
-    margin-top: 10px;
-    margin-bottom: 10px;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
 }
+
+.query-container .rows:nth-child(1) {
+    display: flex;
+    margin-top: 1rem;
+}
+.query-container .rows:nth-last-child(1) {
+    display: flex;
+    margin-bottom: 1rem;
+}
+
+
 .row-group {
     flex: 1 1 0%;
 }
@@ -56,8 +71,9 @@
 
 .row-group>input, .row-group>select {
     margin-left: 10px !important;
-    border-radius: 5px;
+    border-radius: 3px;
     min-width: 150px;
+    max-height: 1.5rem;
 }
 
 .table-result {
@@ -150,4 +166,33 @@
 li>button.active,
 li>a.active {
     color: pink !important;
+}
+
+.row-group label:first-child {
+    min-width: 70px;
+}
+
+
+/* .table-result th,
+.table-result td {
+    white-space: nowrap;
+    min-width: 100px;
+}
+.table-result th:nth-child(1),
+.table-result td:nth-child(1) {
+    min-width: 0px;
+    max-width: 50px !important;
+} */
+
+.table-result th,
+.table-result td {
+    white-space: nowrap;
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+
+}
+.table-result th:nth-child(1),
+.table-result td:nth-child(1) {
+    min-width: 0px;
+    max-width: 50px !important;
 }

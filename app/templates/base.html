@@ -5,20 +5,28 @@
    <meta http-equiv="X-UA-Compatible" content="IE=edge">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">   
    <script src="{{ url_for('static', filename='js/common.js') }}"></script>
+   
    <script src="{{ url_for('static', filename='js/jquery-3.6.0.min.js') }}"></script>
+   
+   <script
+      src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"
+      integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB"
+      crossorigin="anonymous"
+    ></script>
+    
    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
    <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">
    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap5.1.1.css') }}">
-   <script src="{{ url_for('static', filename='js/bootstrap5.1.1.js') }}"></script>
+   <script src="{{ url_for('static', filename='js/bootstrap.js') }}"></script>
 
    {% block script %}{% endblock %}
    <title>{% block title %}{% endblock %}</title>
 </head>
 <body>
-  {% set leftMenu = session['leftMenu'] %} 
+  {% set leftMenu = session['leftMenu'] %}
   {% set menu_list = leftMenu|toJson() %}
 
-  {% set api = url_for(request.endpoint) %} 
+  {% set api = url_for(request.endpoint) %}
   {% set parent = api|getParent(menu_list) %}
   {% set show = 'show' %}
   {% set active = 'active' %}
@@ -26,7 +34,7 @@
 
   <div class="left_side">
     <div class="flex-shrink-0 p-1 bg-white ">
-      <a href="{{ url_for('app_login.home') }}" class="d-flex align-items-center pb-3 mb-3 link-dark text-decoration-none border-bottom">
+      <a href="{{ url_for('app_login.home') }}" class="d-flex align-items-center py-2 mb-3 link-dark text-decoration-none border-bottom">
         <svg class="bi me-2" width="30" height="24"><use xlink:href="#bootstrap"></use></svg>
         <span class="fs-5 fw-semibold">Collapsible</span>
       </a>
@@ -66,24 +74,37 @@
             </ul>
           </div>
         </li>
+
       </ul>
     </div>
   </div>
 
    <!-- right side Start -->
+   {% set userInfo = session['userInfo'] %}
    <div class="right_side">
       <div class="navbar navbar-expand navbar-dark bg-dark">
+            <!-- navbar-collpase start-->
             <button class="navbar-toggler ms-2" type="button" data-bs-toggle="collapse" data-bs-target="#navbar">
                <span class="navbar-toggler-icon"> </span>
             </button>
-         <div class="collapse navbar-collpase" id="navbar">
-            <div class="navbar-nav">
-               <!-- <a class="nav-item nav-link" id="login" href="/login">Login</a> -->
-               <!-- <a class="nav-item nav-link" id="signUp" href="/signUp">Sign Up</a> -->
-               <a class="nav-item nav-link" id="logout" href="{{ url_for('app_login.logout') }}">Logout</a>
-               <!-- <a class="nav-item nav-link" id="home" href="{{ url_for('app_login.login') }}">Home</a> -->
+            <div class="collapse navbar-collpase" id="navbar">
+               <div class="navbar-nav">
+                  <a class="nav-item nav-link" id="logout" href="{{ url_for('app_login.logout') }}">Logout</a>
+               </div>
             </div>
-         </div>
+            <!-- navbar collpase end-->
+            <!-- userInfo card start-->
+            <div class="px-2 flex-grow-1 bd-highlight text-white">
+
+            </div>
+            <div class="px-2 bd-highlight text-white">
+               {{userInfo.userName}}
+            </div>
+            <div class="px-3 bd-highlight text-danger">
+               <a type="button" class="btn btn-danger btn-sm"
+                        href="{{ url_for('app_login.logout') }}">logout</a>
+            </div>
+            <!-- userInfo card end-->
       </div>
 
       <div class="container c_content">
@@ -108,7 +129,7 @@
                      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
                      </button>
                   </div>
-                  {% endif %} 
+                  {% endif %}
                {% endfor %}
             {% endif %}
          {% endwith %}

@@ -16,7 +16,7 @@ log = logging.getLogger(__name__)
 
 
 @app_rolo.route("/")
-@app_rolo.route("/q", methods=['GET','POST'])
+@app_rolo.route("/q", methods=['GET'])
 def home():
     try:
         user_name = request.args.get('userName')
